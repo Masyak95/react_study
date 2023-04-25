@@ -100,13 +100,39 @@ export const KeysTrackerExample = () => {
     console.log("component rendered" + text)
 
     useEffect(() => {
-
-        window.document.addEventListener("keypress", (e) => {
+        const handler = (e: KeyboardEvent) => {
             console.log(e.key)
-            setText((state)=>state + e.key)
-        })
+            setText((state) => state + e.key)
+        }
 
-    }, [])
+        window.document.addEventListener("keypress", handler)
+        return () => {
+            window.document.removeEventListener("keypress", handler)
+        }
+
+    }, [text])
+
+    return <>
+        Typed text: {text}
+    </>
+
+}
+
+export const SetTimeoutExample = () => {
+    const [text, setText] = useState("")
+
+    console.log("component rendered" + text)
+
+    // useEffect(() => {
+    //
+    //     const timeoutID = (setTimeout(()=>{
+    //         setText("three seconds past")
+    //     },3000)
+    //     rurn () => {
+    //
+    //     }
+    //
+    // }, [text])
 
     return <>
         Typed text: {text}
