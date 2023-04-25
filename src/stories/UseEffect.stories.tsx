@@ -47,18 +47,18 @@ export const SetTimeOutExample = () => {
 
     useEffect(() => {
 
-        setTimeout(()=>{
+        setTimeout(() => {
             debugger
             document.title = counter.toString()
-        }, 1000 )
+        }, 1000)
 
-    },[counter])
+    }, [counter])
 
     useEffect(() => {
 
-        setInterval(()=>{
-           setCounter(state => state + 1)
-        }, 1000 )
+        setInterval(() => {
+            setCounter(state => state + 1)
+        }, 1000)
 
     })
 
@@ -70,3 +70,77 @@ export const SetTimeOutExample = () => {
     </>
 
 }
+
+export const ResetEffectExample = () => {
+    const [counter, setCounter] = useState(1)
+
+    console.log("SetTimeoutExample")
+
+    useEffect(() => {
+        console.log("Effect occurred")
+
+        return () => {
+            console.log("reset effect" + counter)
+        }
+    }, [counter])
+
+    return <>
+        Hello, counter: {counter}
+        <button onClick={() => {
+            setCounter(counter + 1)
+        }}>+
+        </button>
+    </>
+
+}
+
+export const KeysTrackerExample = () => {
+    const [text, setText] = useState("")
+
+    console.log("component rendered" + text)
+
+    useEffect(() => {
+
+        window.document.addEventListener("keypress", (e) => {
+            console.log(e.key)
+            setText((state)=>state + e.key)
+        })
+
+    }, [])
+
+    return <>
+        Typed text: {text}
+    </>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
